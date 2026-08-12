@@ -1,0 +1,17 @@
+{
+  "name": "my-dbt-project-dev",
+  "image": "europe-west3-docker.pkg.dev/my-dbt-dev/dbt-images/my-dbt-dev-container:latest",
+  "postCreateCommand": "chmod +x scripts/ensure-user.sh && bash scripts/ensure-user.sh",
+  "remoteEnv": {
+    "DBT_PROFILES_DIR": "/workspace"
+  },
+  "runArgs": [
+    "--env-file",
+    ".devcontainer/devcontainer.env"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localEnv:LOCAL_GCLOUD},target=/home/user/.config/gcloud,type=bind"
+  ]
+}

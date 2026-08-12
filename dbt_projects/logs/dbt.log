@@ -1,0 +1,80 @@
+[0m01:53:22.534229 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C16067740>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C18D83EC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C18D83F80>]}
+
+
+============================== 01:53:22.548345 | 73d817fb-427a-4450-8216-9c823f1da88b ==============================
+[0m01:53:22.548345 [info ] [MainThread]: Running with dbt=1.12.0
+[0m01:53:22.548345 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\Ahamefula Utom\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'invocation_command': 'dbt init my_dbt_project', 'log_path': 'logs'}
+[0m01:53:22.599305 [debug] [MainThread]: Starter project path: C:\dbt-projects\my_first_dbt_project\dbt-env\Lib\site-packages\dbt\include\starter_project
+[0m01:53:22.631409 [info ] [MainThread]: Setting up your profile.
+[0m01:54:38.017378 [info ] [MainThread]: Profile my_dbt_project written to C:\Users\Ahamefula Utom\.dbt\profiles.yml using target's profile_template.yml and your supplied values.
+[0m01:54:38.027489 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m01:54:38.028426 [info ] [MainThread]: dbt version: 1.12.0
+[0m01:54:38.029199 [info ] [MainThread]: python version: 3.12.4
+[0m01:54:38.029652 [info ] [MainThread]: python path: C:\dbt-projects\my_first_dbt_project\dbt-env\Scripts\python.exe
+[0m01:54:38.030866 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m01:54:38.101850 [info ] [MainThread]: Using profiles dir at C:\Users\Ahamefula Utom\.dbt
+[0m01:54:38.103845 [info ] [MainThread]: Using profiles.yml file at C:\Users\Ahamefula Utom\.dbt\profiles.yml
+[0m01:54:38.104181 [info ] [MainThread]: Using dbt_project.yml file at C:\MeasureProjects\measure-emea-de-gm-data-recipes-learner\dbt_projects\my_dbt_project\dbt_project.yml
+[0m01:54:38.105188 [info ] [MainThread]: adapter type: bigquery
+[0m01:54:38.106231 [info ] [MainThread]: adapter version: 1.12.0
+[0m01:54:38.218861 [info ] [MainThread]: Configuration:
+[0m01:54:38.218861 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m01:54:38.218861 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m01:54:38.218861 [info ] [MainThread]: Required dependencies:
+[0m01:54:38.218861 [debug] [MainThread]: Executing "git --help"
+[0m01:54:38.286212 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   history    EXPERIMENTAL: Rewrite history\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Set `HEAD` or the index to a known state\n   switch     Switch branches\n   tag        Create, list, delete or verify tags\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m01:54:38.287236 [debug] [MainThread]: STDERR: "b''"
+[0m01:54:38.288246 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m01:54:38.289247 [info ] [MainThread]: Connection:
+[0m01:54:38.289247 [info ] [MainThread]:   method: oauth
+[0m01:54:38.290342 [info ] [MainThread]:   database: my-dbt-dev
+[0m01:54:38.291248 [info ] [MainThread]:   execution_project: my-dbt-dev
+[0m01:54:38.291248 [info ] [MainThread]:   schema: ahamefula
+[0m01:54:38.292246 [info ] [MainThread]:   location: EU
+[0m01:54:38.292246 [info ] [MainThread]:   priority: interactive
+[0m01:54:38.292246 [info ] [MainThread]:   maximum_bytes_billed: None
+[0m01:54:38.293243 [info ] [MainThread]:   reservation: None
+[0m01:54:38.294249 [info ] [MainThread]:   impersonate_service_account: None
+[0m01:54:38.294249 [info ] [MainThread]:   job_retry_deadline_seconds: None
+[0m01:54:38.295247 [info ] [MainThread]:   job_retries: 1
+[0m01:54:38.295247 [info ] [MainThread]:   job_creation_timeout_seconds: None
+[0m01:54:38.296250 [info ] [MainThread]:   job_execution_timeout_seconds: 300
+[0m01:54:38.297195 [info ] [MainThread]:   job_link_info_level_log: False
+[0m01:54:38.298277 [info ] [MainThread]:   timeout_seconds: 300
+[0m01:54:38.299257 [info ] [MainThread]:   client_id: None
+[0m01:54:38.299257 [info ] [MainThread]:   token_uri: None
+[0m01:54:38.299257 [info ] [MainThread]:   compute_region: None
+[0m01:54:38.299257 [info ] [MainThread]:   dataproc_cluster_name: None
+[0m01:54:38.299257 [info ] [MainThread]:   gcs_bucket: None
+[0m01:54:38.302803 [info ] [MainThread]:   dataproc_batch: None
+[0m01:54:38.303816 [info ] [MainThread]: Registered adapter: bigquery=1.12.0
+[0m01:54:39.017521 [debug] [MainThread]: Acquiring new bigquery connection 'debug'
+[0m01:54:39.018523 [debug] [MainThread]: On debug: select 1 as id
+[0m01:54:39.019924 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m01:54:44.318930 [debug] [MainThread]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=my-dbt-dev&j=bq:EU:22a49c92-bd22-4a2a-8eb1-e310beb27d09&page=queryresults
+[0m01:54:44.481205 [debug] [MainThread]: SQL status: OK in 0.173 seconds
+[0m01:54:48.974667 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m01:54:48.974667 [info ] [MainThread]: [32mAll checks passed![0m
+[0m01:54:48.976414 [info ] [MainThread]: Your new dbt project "my_dbt_project" was created!
+Initialized new project in C:\MeasureProjects\measure-emea-de-gm-data-recipes-learner\dbt_projects\my_dbt_project\my_dbt_project
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m01:54:48.976414 [debug] [MainThread]: Command `dbt init` succeeded at 01:54:48.976414 after 86.66 seconds
+[0m01:54:48.976414 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m01:54:48.976414 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C18D1DEE0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C16BBC0B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014C2BF9DC40>]}
+[0m01:54:48.976414 [debug] [MainThread]: Flushing usage events
+[0m01:54:49.827063 [debug] [MainThread]: An error was encountered while trying to flush usage events

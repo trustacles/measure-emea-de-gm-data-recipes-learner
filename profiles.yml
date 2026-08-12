@@ -1,0 +1,29 @@
+emea_learner:
+  target: "{{ env_var('DBT_TARGET', 'cloud_run_job_automation') }}"
+  outputs:
+
+    # Used when running automated — in Docker / Cloud Run.
+    # PROJECT_ID is injected at deploy time, so the SAME image
+    # can run against dev, uat, or prd without any code change.
+    # No key file: the Cloud Run Job's attached service account
+    # is picked up automatically.
+    cloud_run_job_automation:
+      type: bigquery
+      method: oauth
+      use_colors: false
+      project: "{{ env_var('PROJECT_ID', 'my-dbt-dev') }}"
+      dataset: dbt_data   # fallback only — real dataset names come from the schema macro (Part 5)
+      threads: 8
+
+    # Used ONLY when developing locally.
+    # Uses your personal Google login (oauth).
+    sandbox:
+      type: bigquery
+      method: oauth
+      project: my-dbt-dev
+      dataset: "{{ env_var('DBT_DEVELOPER_NAME', 'developer') }}"   # fallback only — see Part 5
+      location: europe-west3
+      threads: 4
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      priority: interactive

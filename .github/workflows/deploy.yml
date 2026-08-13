@@ -1,0 +1,110 @@
+name: Build and Deploy dbt
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  pages: write
+
+env:
+  IMAGE: europe-west3-docker.pkg.dev/my-dbt-dev/dbt-images/my-dbt-project:${{ github.sha }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1032041822082/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "dbt-runner@my-dbt-dev.iam.gserviceaccount.com"
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: gcloud auth configure-docker europe-west3-docker.pkg.dev
+      - run: |
+          docker build --build-arg DBT_SOURCE_PATH=dbt_projects -t $IMAGE .
+          docker push $IMAGE
+
+  deploy-dev:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1032041822082/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "dbt-runner@my-dbt-dev.iam.gserviceaccount.com"
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: |
+          gcloud run jobs deploy my-dbt-project-dev \
+            --image=$IMAGE --region=europe-west3 \
+            --set-env-vars="PROJECT_ID=my-dbt-dev,DBT_PROJECT_DIR=/app/my_dbt_project"
+          gcloud run jobs execute my-dbt-project-dev --region=europe-west3
+
+  # Pauses here waiting for manual approval — same as your GitLab
+  # pipeline's "push-uat" stage showing "waiting for manual action"
+  deploy-uat:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1032041822082/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "dbt-runner@my-dbt-uat.iam.gserviceaccount.com"
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: |
+          gcloud run jobs deploy my-dbt-project-uat \
+            --image=$IMAGE --region=europe-west3 --project=my-dbt-uat \
+            --set-env-vars="PROJECT_ID=my-dbt-uat,DBT_PROJECT_DIR=/app/my_dbt_project"
+          gcloud run jobs execute my-dbt-project-uat --region=europe-west3 --project=my-dbt-uat
+
+  # Pauses here too — matching "push-prd" in your pipeline
+  deploy-prd:
+    needs: deploy-uat
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1032041822082/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "dbt-runner@my-dbt-prd.iam.gserviceaccount.com"
+      - uses: google-github-actions/setup-gcloud@v2
+      - run: |
+          gcloud run jobs deploy my-dbt-project-prd \
+            --image=$IMAGE --region=europe-west3 --project=my-dbt-prd \
+            --set-env-vars="PROJECT_ID=my-dbt-prd,DBT_PROJECT_DIR=/app/my_dbt_project"
+          gcloud run jobs execute my-dbt-project-prd --region=europe-west3 --project=my-dbt-prd
+
+  # Matches the "dbt-docs" stage in your GitLab pipeline — generates
+  # the lineage graph and publishes it, GitHub Pages instead of GitLab Pages
+  dbt-docs:
+    needs: deploy-prd
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install dbt-core dbt-bigquery
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/1032041822082/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          service_account: "dbt-runner@my-dbt-dev.iam.gserviceaccount.com"
+      - run: |
+          dbt docs generate --project-dir dbt_projects/my_dbt_project --profiles-dir . --target cloud_run_job_automation
+        env:
+          PROJECT_ID: my-dbt-dev
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dbt_projects/my_dbt_project/target
+      - id: deployment
+        uses: actions/deploy-pages@v4

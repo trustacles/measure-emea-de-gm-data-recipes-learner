@@ -32,9 +32,7 @@ with source_data as (
     select 6 as id, 'Grace' as name, 'Groceries' as category, 154.75 as amount, cast('2024-01-27' as date) as created_at
     union all
     select 7 as id, 'Henry' as name, 'Electronics' as category, 899.99 as amount, cast('2024-02-01' as date) as created_at
-    union all
-    select 8 as id, 'Isla' as name, 'Home & Garden' as category, 210.40 as amount, cast('2024-02-04' as date) as created_at
-
+    
 )
 
 select *

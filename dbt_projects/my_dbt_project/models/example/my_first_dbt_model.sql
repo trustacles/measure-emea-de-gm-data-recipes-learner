@@ -16,10 +16,7 @@
 }}
 
 with source_data as (
-
     select 1 as id, 'Alice' as name, 'Electronics' as category, 250.00 as amount, cast('2024-01-05' as date) as created_at
-    union all
-    select null as id, 'Bob' as name, 'Clothing' as category, 45.50 as amount, cast('2024-01-08' as date) as created_at
     union all
     select 2 as id, 'Carla' as name, 'Groceries' as category, 89.99 as amount, cast('2024-01-12' as date) as created_at
     union all

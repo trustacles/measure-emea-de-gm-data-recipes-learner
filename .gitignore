@@ -1,2 +1,15 @@
 dbt-env/
+target/
+dbt_packages/
+logs/
+**/package-lock.yml
+
+.idea
+.user.yaml
+*.env
+.DS_Store
+.vscode
 dbt-env/
+
+# manifest.json is used locally for slim CI-style runs and must not be committed
+manifest.json
